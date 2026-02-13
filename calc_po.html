@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativo de Modelos PO - Jefferson Carvalho</title>
+    <style>
+        :root { --anhanguera: #f37021; --dark: #2c3e50; --bg: #f0f2f5; --success: #27ae60; --danger: #e74c3c; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); padding: 20px; }
+        
+        .document { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 12px solid var(--anhanguera); }
+        
+        .header-acad { text-align: center; border-bottom: 2px solid #eee; margin-bottom: 30px; padding-bottom: 20px; }
+        .header-acad h1 { margin: 0; font-size: 1.5rem; color: var(--dark); }
+        .header-acad p { margin: 4px 0; font-weight: bold; color: #555; font-size: 0.9rem; }
+        .aluno-info { margin-top: 10px; font-style: italic; color: var(--anhanguera); font-size: 1rem; }
+
+        .flex-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .calc-card { flex: 1; min-width: 340px; background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        h2 { font-size: 1.1rem; color: var(--anhanguera); border-bottom: 1px solid #eee; padding-bottom: 10px; text-align: center; }
+        h3 { font-size: 0.9rem; color: var(--dark); margin-top: 15px; background: #f8f9fa; padding: 5px; }
+        
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        label { font-size: 0.75rem; font-weight: bold; color: #666; display: block; margin-bottom: 3px; }
+        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.9rem; }
+        
+        .res-box { margin-top: 20px; padding: 15px; border-radius: 6px; text-align: center; color: white; transition: 0.3s; }
+        .res-lucro { font-size: 1.5rem; font-weight: bold; display: block; }
+        .status-msg { font-size: 0.8rem; margin-top: 5px; font-weight: bold; }
+        
+        .bg-neutral { background: var(--dark); }
+        .bg-ok { background: var(--success); }
+        .bg-err { background: var(--danger); }
+    </style>
+</head>
+<body>
+
+<div class="document">
+    <div class="header-acad">
+        <h1>FACULDADE ANHANGUERA</h1>
+        <p>NOME DA DISCIPLINA: PESQUISA OPERACIONAL</p>
+        <p>Unidade: U1_MODELAGEM NA TOMADA DE DECISÃO</p>
+        <p>Aula: A4_APLICAÇÃO DE MODELOS EM PESQUISA OPERACIONAL</p>
+        <div class="aluno-info">ALUNO: JEFFERSON CARVALHO DANTAS - 7º PERÍODO</div>
+    </div>
+
+    <div class="flex-container">
+        
+        <div class="calc-card" id="calcA">
+            <h2>Problema (A) - Fábrica de Móveis</h2>
+            <h3>Parâmetros de Lucro (Z)</h3>
+            <div class="input-group">
+                <div><label>Lucro Cadeira:</label><input type="number" id="a_l1" value="40" oninput="calcA()"></div>
+                <div><label>Lucro Mesa:</label><input type="number" id="a_l2" value="70" oninput="calcA()"></div>
+            </div>
+            
+            <h3>Restrições de Recursos</h3>
+            <div class="input-group">
+                <div><label>Madeira/Cad.:</label><input type="number" id="a_c11" value="3" oninput="calcA()"></div>
+                <div><label>Madeira/Mesa:</label><input type="number" id="a_c12" value="5" oninput="calcA()"></div>
+                <div style="grid-column: span 2;"><label>Total Madeira (m²):</label><input type="number" id="a_lim1" value="90" oninput="calcA()"></div>
+            </div>
+            <div class="input-group">
+                <div><label>Tempo/Cad.:</label><input type="number" id="a_c21" value="20" oninput="calcA()"></div>
+                <div><label>Tempo/Mesa:</label><input type="number" id="a_c22" value="30" oninput="calcA()"></div>
+                <div style="grid-column: span 2;"><label>Total Tempo (min):</label><input type="number" id="a_lim2" value="600" oninput="calcA()"></div>
+            </div>
+
+            <h3>Decisão de Produção</h3>
+            <div class="input-group">
+                <div><label>Qtd. Cadeiras:</label><input type="number" id="a_x1" value="0" oninput="calcA()"></div>
+                <div><label>Qtd. Mesas:</label><input type="number" id="a_x2" value="0" oninput="calcA()"></div>
+            </div>
+
+            <div id="boxA" class="res-box bg-neutral">
+                <span>LUCRO TOTAL (A)</span>
+                <span id="a_total" class="res-lucro">R$ 0,00</span>
+                <div id="a_status" class="status-msg">Insira a produção</div>
+            </div>
+        </div>
+
+        <div class="calc-card" id="calcB">
+            <h2>Problema (B) - Produtos P1 e P2</h2>
+            <h3>Parâmetros de Lucro (Z)</h3>
+            <div class="input-group">
+                <div><label>Lucro P1:</label><input type="number" id="b_l1" value="1000" oninput="calcB()"></div>
+                <div><label>Lucro P2:</label><input type="number" id="b_l2" value="1800" oninput="calcB()"></div>
+            </div>
+            
+            <h3>Restrição de Tempo e Mercado</h3>
+            <div class="input-group">
+                <div><label>Horas P1:</label><input type="number" id="b_c11" value="20" oninput="calcB()"></div>
+                <div><label>Horas P2:</label><input type="number" id="b_c12" value="30" oninput="calcB()"></div>
+                <div style="grid-column: span 2;"><label>Total Horas/Ano:</label><input type="number" id="b_lim1" value="1200" oninput="calcB()"></div>
+            </div>
+            <div class="input-group">
+                <div><label>Demanda Máx P1:</label><input type="number" id="b_d1" value="40" oninput="calcB()"></div>
+                <div><label>Demanda Máx P2:</label><input type="number" id="b_d2" value="30" oninput="calcB()"></div>
+            </div>
+
+            <h3>Decisão de Produção</h3>
+            <div class="input-group">
+                <div><label>Qtd. P1:</label><input type="number" id="b_x1" value="0" oninput="calcB()"></div>
+                <div><label>Qtd. P2:</label><input type="number" id="b_x2" value="0" oninput="calcB()"></div>
+            </div>
+
+            <div id="boxB" class="res-box bg-neutral">
+                <span>LUCRO TOTAL (B)</span>
+                <span id="b_total" class="res-lucro">R$ 0,00</span>
+                <div id="b_status" class="status-msg">Insira a produção</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function getV(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    function calcA() {
+        const l1 = getV('a_l1'), l2 = getV('a_l2');
+        const c11 = getV('a_c11'), c12 = getV('a_c12'), lim1 = getV('a_lim1');
+        const c21 = getV('a_c21'), c22 = getV('a_c22'), lim2 = getV('a_lim2');
+        const x1 = getV('a_x1'), x2 = getV('a_x2');
+
+        const lucro = (l1 * x1) + (l2 * x2);
+        const usoM = (c11 * x1) + (c12 * x2);
+        const usoT = (c21 * x1) + (c22 * x2);
+
+        document.getElementById('a_total').innerText = lucro.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const box = document.getElementById('boxA');
+        const status = document.getElementById('a_status');
+
+        if (usoM > lim1 || usoT > lim2) {
+            box.className = "res-box bg-err";
+            status.innerText = "❌ INVIÁVEL: RECURSO EXCEDIDO";
+        } else if (x1 > 0 || x2 > 0) {
+            box.className = "res-box bg-ok";
+            status.innerText = "✅ PRODUÇÃO VIÁVEL";
+        } else {
+            box.className = "res-box bg-neutral";
+            status.innerText = "Aguardando dados...";
+        }
+    }
+
+    function calcB() {
+        const l1 = getV('b_l1'), l2 = getV('b_l2');
+        const c1 = getV('b_c11'), c2 = getV('b_c12'), limT = getV('b_lim1');
+        const d1 = getV('b_d1'), d2 = getV('b_d2');
+        const x1 = getV('b_x1'), x2 = getV('b_x2');
+
+        const lucro = (l1 * x1) + (l2 * x2);
+        const usoT = (c1 * x1) + (c2 * x2);
+
+        document.getElementById('b_total').innerText = lucro.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const box = document.getElementById('boxB');
+        const status = document.getElementById('b_status');
+
+        if (usoT > limT || x1 > d1 || x2 > d2) {
+            box.className = "res-box bg-err";
+            status.innerText = "❌ INVIÁVEL: TEMPO OU DEMANDA EXCEDIDA";
+        } else if (x1 > 0 || x2 > 0) {
+            box.className = "res-box bg-ok";
+            status.innerText = "✅ PRODUÇÃO VIÁVEL";
+        } else {
+            box.className = "res-box bg-neutral";
+            status.innerText = "Aguardando dados...";
+        }
+    }
+
+    window.onload = () => { calcA(); calcB(); };
+</script>
+
+</body>
+</html>
